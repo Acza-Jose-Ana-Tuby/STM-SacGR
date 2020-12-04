@@ -1,40 +1,34 @@
-import mysql.connector
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-# Cria uma conexão com o servidor ou o banco de dados:
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@127.0.0.1/stm-sacgr'
+db = SQLAlchemy(app)
 
-def create_connection(server, userid, passwd, databs=None):
-    if databs == None:
-        connection = mysql.connector.connect(
-            host = server, user = userid, password = passwd)
-    else:
-        connection = mysql.connector.connect(
-            host = server, user = userid, password = passwd, database = databs)
-    return connection
+class Consultas(db.Model):
+    Cons_ID        = db.Column(db.Integer, primary_key = True)
+    Cons_Pct_ID    = db.Column(db.Integer)
+    Cons_Med_ID    = db.Column(db.Integer)
+    Cons_Horario   = db.Column(db.Time(6))
+    Cons_Data      = db.Column(db.Date)
+    Cons_Descricao = db.Column(db.Text(255))
+    Cons_Pagamento = db.Column(db.VARCHAR(10))
+    Cons_Tipo      = db.Column(db.VARCHAR(6))
 
-# Verifica se uma base de dados já existe
+    def __repr__(self):
+        return '<User %r>' % self.username
 
-def search_database(database_name):
-    mycursor.execute("SHOW DATABASES")
-    result = False
-    for x in mycursor:
-        if x == (database_name,):
-            result = True
-            break
-    return result
-    
-# Cria uma nova base de dados
+class Clinica_Possui_Medico(db.Model):
+    Cli_id = db.Column(db.Integer, primary_key = True)
+    Med_id = db.Column(db.Integer, primary_key = True)
 
-def create_database(database_name):
-    result = False
-    if search_database(database_name) == False:
-        mycursor.execute("CREATE DATABASE " + database_name)
-        result = True
-    return result
+    def __repr__(self):
+        return '<User %r>' % self.username
 
-mydb = create_connection("localhost", "root", "password")
-mycursor = mydb.cursor()
-create_database("mydatabase")
+@app.route('/')
+def index():
+    db.create_all()
+    return "True"
 
-mydb = create_connection("localhost", "root", "password", "mydatabase")
-mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))")
+if __name__ == "__main__":
+    app.run(debug=True)
