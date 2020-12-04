@@ -1,14 +1,15 @@
 import mysql.connector
 
-# Cria uma conexão com privilégios de administrador no servidor MySQL:
+# Cria uma conexão com o servidor ou o banco de dados:
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="password"
-)
-
-mycursor = mydb.cursor()
+def create_connection(server, userid, passwd, databs=None):
+    if databs == None:
+        connection = mysql.connector.connect(
+            host = server, user = userid, password = passwd)
+    else:
+        connection = mysql.connector.connect(
+            host = server, user = userid, password = passwd, database = databs)
+    return connection
 
 # Verifica se uma base de dados já existe
 
@@ -30,4 +31,10 @@ def create_database(database_name):
         result = True
     return result
 
+mydb = create_connection("localhost", "root", "password")
+mycursor = mydb.cursor()
+create_database("mydatabase")
 
+mydb = create_connection("localhost", "root", "password", "mydatabase")
+mycursor = mydb.cursor()
+mycursor.execute("CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))")
