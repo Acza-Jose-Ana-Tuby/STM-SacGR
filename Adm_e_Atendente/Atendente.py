@@ -15,6 +15,7 @@ class Atendente(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
 @app.route('/')
 def index():
     db.create_all()
