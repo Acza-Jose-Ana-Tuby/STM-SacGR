@@ -1,6 +1,6 @@
 from .db_intantiation import db
 
-class Paciente(db.Model):
+class paciente(db.Model):
     Pct_id = db.Column(db.Integer, primary_key=True)
     Pct_Nome = db.Column(db.VARCHAR(50), unique=False, nullable=False)
     Pct_Rg = db.Column(db.VARCHAR(20), unique=False, nullable=False)
