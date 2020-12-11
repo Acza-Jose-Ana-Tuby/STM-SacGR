@@ -1,22 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from mysql_sacgr.criador import con_servidor, con_basededados, basededados
-from mysql_sacgr.verificador import procurar_basededados, procurar_tabelas
-
-listadetabelas = [
-    "Adm_Clinica",
-    "Adm_Sistema",
-    "Atendente",
-    "Clinica",
-    "Clinica_Possui_Medico",
-    "Consulta",
-    "Medico",
-    "Paciente"]
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@127.0.0.1/sacgr'
-bd = SQLAlchemy(app)
+from ../servidor import bd
 
 class adm_clinica(bd.Model):
     AdmCli_ID = bd.Column(bd.Integer, primary_key=True)
@@ -97,20 +82,3 @@ class paciente(bd.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
-
-@app.route('/basededados') # Cria a base de dados no servidor
-def criar_base_de_dados():
-    conexao = con_servidor("127.0.0.1", "root", None)
-    if procurar_basededados(conexao, "sacgr") == False:
-        basededados(conexao, "sacgr")
-    return "Feito\n"
-
-@app.route('/tabelas') # Cria as tabelas no servidor
-def criar_tabelas():
-    conexao = con_basededados("127.0.0.1", "root", None, "sacgr")
-    if procurar_tabelas(conexao, listadetabelas) == False:
-        bd.create_all()
-    return "Feito\n"
-
-if __name__ == "__main__":
-    app.run(debug=True)
