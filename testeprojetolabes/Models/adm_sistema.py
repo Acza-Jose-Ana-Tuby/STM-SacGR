@@ -1,4 +1,8 @@
-from .db_intantiation import db
+import os
+import sys
+sys.path.append(os.path.realpath('.'))
+from database_configuration import db
+
 
 class adm_sistema(db.Model):
     AdmSis_id = db.Column(db.Integer, primary_key=True)

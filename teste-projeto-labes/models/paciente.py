@@ -1,5 +1,3 @@
-from .db_intantiation import db
-
 class paciente(db.Model):
     Pct_id = db.Column(db.Integer, primary_key=True)
     Pct_Nome = db.Column(db.VARCHAR(50), unique=False, nullable=False)

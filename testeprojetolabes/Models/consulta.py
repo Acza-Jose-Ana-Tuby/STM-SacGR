@@ -1,4 +1,9 @@
-from .db_intantiation import db
+import os
+import sys
+sys.path.append(os.path.realpath('.'))
+from database_configuration import db
+
+
 
 class consulta(db.Model):
     Cons_ID        = db.Column(db.Integer, primary_key = True)
