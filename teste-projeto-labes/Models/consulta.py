@@ -3,8 +3,6 @@ import sys
 sys.path.append(os.path.realpath('.'))
 from database_configuration import db
 
-
-
 class consulta(db.Model):
     Cons_ID        = db.Column(db.Integer, primary_key = True)
     Cons_Pct_ID    = db.Column(db.Integer)
@@ -14,6 +12,3 @@ class consulta(db.Model):
     Cons_Descricao = db.Column(db.Text(255))
     Cons_Pagamento = db.Column(db.VARCHAR(10))
     Cons_Tipo      = db.Column(db.VARCHAR(6))
-
-    def __repr__(self):
-        return ''

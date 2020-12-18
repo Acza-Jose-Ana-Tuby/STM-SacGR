@@ -3,7 +3,6 @@ import sys
 sys.path.append(os.path.realpath('.'))
 from database_configuration import db
 
-
 class clinica(db.Model):
     Cli_ID = db.Column(db.Integer, primary_key = True)
     Cli_AdmCli_ID = db.Column(db.Integer, db.ForeignKey('adm_clinica.AdmCli_ID'))
@@ -15,6 +14,3 @@ class clinica(db.Model):
     Cli_Taxa_Deslocamento = db.Column(db.Float, unique=False, nullable=False)
 
     adm_clinica = db.relationship('adm_clinica', backref=db.backref('clinica', lazy=True))
-
-    def __repr__(self):
-        return ''
