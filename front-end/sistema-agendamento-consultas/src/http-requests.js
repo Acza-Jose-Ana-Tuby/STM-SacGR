@@ -12,9 +12,27 @@ let baseURLRequest = axios.create({
 })
 
 class httpRequests {
+
     create(object, data) {
-        console.log(baseURLRequest.post(`/${object}`, data))
+        return baseURLRequest.post(`/${object}`, data)
     }
+
+    read(object, id) {
+        return baseURLRequest.get(`/${object}/${id}`)
+    }
+
+    readAll(object) {
+        return baseURLRequest.get(`/${object}`)
+    }
+
+    update(object, id, data) {
+        return baseURLRequest.put(`/${object}/${id}`, data)
+    }
+
+    delete(object, id) {
+        return baseURLRequest.delete(`/${object}/${id}`)
+    }
+
 }
 
 export default new httpRequests();

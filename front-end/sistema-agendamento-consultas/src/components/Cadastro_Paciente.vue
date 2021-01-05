@@ -1,7 +1,12 @@
 <template>
+    <div>
+         <PainelAviso v-if="showInformation"
+            @showPanel = "showInformation = $event"
+         >
+         </PainelAviso>
     <div class="container-fluid">
         <div class="col d-flex justify-content-center">
-            <div class="card shadow bg-light border-dark mb-3" style="width: 25%;">
+            <div class="card shadow bg-light border-dark mb-3" style="width: 30%;">
                 <div class="card-header border-dark">
                     <br>
                     <h3><b>Cadastro de Paciente {{userData}}</b></h3> 
@@ -39,20 +44,37 @@
                     </div>
                     <div class='form-group'>
                         <label>Pertence a algum grupo de risco?</label><br>
-                        <input type="radio"> Sim
-                        <input type="radio"> Não
-                        <input type="radio"> Não Sei
-                    </div><br>
+                        <input @click="riskGroup = 1" name="riskGroup" type="radio"> Sim
+                        <input @click="riskGroup = 0" name="riskGroup" type="radio"> Não <br>
+                    </div>
+                    <div class='form-group'>
+                        <span>Como saber se sou um paciente do Grupo de Risco? <br> 
+                        <a href="javascript:void(0);" @click="showInformation = true"> Clique Aqui </a></span>
+                    </div>
                 </form>
-                <button @click="createUser()" class="btn btn-primary rounded-pill">Enviar</button><br>
+
+                <button @click="createUser()" class="btn btn-primary rounded-pill">Enviar</button><br><br>
+
+                <p v-show="showIncompleteAlert" style="text-align: center;">
+                    <span class="alert alert-warning">Preencha todos os campos para prosseguir.</span><br>
+                </p>
+                <p v-show="showCreatedAlert" style="text-align: center;">
+                    <span class="alert alert-success">Paciente cadastrado com sucesso!</span><br>
+                </p>
+                <br>
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import httpRequests from '../http-requests'
+import PainelAviso from './Painel_Aviso'
 export default {
+    components: {
+        PainelAviso
+    },
     data() {
         return {
             name: '',
@@ -63,11 +85,19 @@ export default {
             telephone: '',
             password: '',
             riskGroup: '',
-            userData: ''
+            userData: '',
+            showInformation: '',
+            showIncompleteAlert: false,
+            showCreatedAlert: false
         }
     },
     methods: {
         createUser() {
+            if (!this.name || !this.RG || !this.CPF || !this.address || !this.email || !this.telephone || !this.password || this.riskGroup === '') {
+                this.showIncompleteAlert = true
+                return
+            }
+
             httpRequests.create('paciente', 
                 {'Pct_Nome': this.name,
                  'Pct_Rg': this.RG,
@@ -76,7 +106,13 @@ export default {
                  'Pct_Email': this.email,
                  'Pct_Telefone': this.telephone,
                  'Pct_Senha': this.password,
-                 'Pct_Grupo_Risco': '0'
+                 'Pct_Grupo_Risco': this.riskGroup
+            }).then ( () => {
+                this.showIncompleteAlert = false
+                this.showCreatedAlert = true
+                setTimeout(() => {
+                    this.$router.push('/Login')
+                }, 2000)
             })
         }
     }
@@ -120,10 +156,20 @@ input[type="email"] {
 }
 
 button{
-    ext-align: center; 
+    text-align: center; 
     margin: 0 auto;
     float: none; 
     width: 25%;
 }
+
+h3 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+
+}
+
 
 </style>
