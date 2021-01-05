@@ -5,7 +5,7 @@ from database_configuration import db
 
 class consulta(db.Model):
     __tablename__ = "consulta"
-    Cons_ID        = db.Column(db.Integer, primary_key = True)
+    Cons_ID        = db.Column(db.Integer, primary_key = True, autoincrement=True)
     Cons_Pct_ID    = db.Column(db.Integer)
     Cons_Med_ID    = db.Column(db.Integer)
     Cons_Horario   = db.Column(db.Time(6))

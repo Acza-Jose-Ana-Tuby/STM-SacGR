@@ -151,9 +151,8 @@ export default {
                 'Cons_Tipo': this.appointmentMode,
                 'Cons_Descricao': 'aaaa',
                 'Cons_Pagamento': this.paymentForm,
-                'Cons_Pct_ID': 2
+                'Cons_Pct_ID': 1
             }).then( () => {
-                this.$router.push('/Login')
                 this.selectedPatient = ''
                 this.selectedSpecialization = ''
                 this.filteredDoctors = []
