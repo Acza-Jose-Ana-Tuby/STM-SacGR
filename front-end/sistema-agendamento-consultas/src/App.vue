@@ -6,6 +6,10 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
+      <li class="nav-item">
+        <a class="nav-link" href="/GerenciaAdministrador">Administrador</a>
+      </li>
+      <li>
         <a class="nav-link" href="/GerenciaPaciente">Paciente</a>
       </li>
       <li class="nav-item">
@@ -15,11 +19,9 @@
         <a class="nav-link" href="/GerenciaAtendente">Atendente</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/AgendarConsulta">Agendar Consulta</a>
+        <a class="nav-link" href="/PoliticaAgendamento">Política de Agendamento</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/AgendarConsulta">Política de Agendamento</a>
-      </li>
+  
   
     </ul>
       <div>

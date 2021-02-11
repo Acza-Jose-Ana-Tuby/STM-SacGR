@@ -7,6 +7,11 @@ export const router = new Router({
     mode: 'history',
     routes: [
         {
+            path: '/PoliticaAgendamento',
+            name: 'PoliticaAgendamento',
+            component: () => import('./components/Politica_Agendamento.vue')
+        },
+        {
             path: '/CadastroPaciente',
             name: 'CadastroPaciente',
             component: () => import('./components/Cadastro_Paciente.vue')
@@ -15,6 +20,15 @@ export const router = new Router({
             path: '/GerenciaPaciente',
             name: 'GerenciaPaciente',
             component: () => import('./components/Gerencia_Paciente.vue')
+        },
+        {
+            path: '/GerenciaAdministrador',
+            name: 'GerenciaAdministrador',
+            component: () => import('./components/Gerencia_Administrador.vue')
+        },
+        {
+            path: '/GerenciaAdministrador/:id',
+            component: () => import('./components/Gerencia_Administrador_Form.vue')
         },
         {
             path: '/GerenciaPaciente/:id',
@@ -39,12 +53,13 @@ export const router = new Router({
             component: () => import('./components/Gerencia_Atendente_Form.vue')
         },
         {
-            path: '/AgendarConsulta',
+            path: '/AgendarConsulta/:id',
             name: 'AgendamentoConsulta',
             component: () => import('./components/Agendamento_Consulta.vue')
         },
         {
             path: '/AgendaMedica/:id',
+            name: 'AgendaMedica', 
             component: () => import('./components/Agenda_Medica.vue')
         },
         {

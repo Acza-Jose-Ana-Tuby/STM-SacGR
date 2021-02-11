@@ -13,12 +13,17 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 export default {
     created() {
+        this.readSchedulingPolicy()
         this.readDoctorSchedules()
     },
     components: {
         FullCalendar 
     },
     props: {
+        riskGroupBelonging: {
+            type: Number,
+            require: false
+        },
         doctorID: {
             type: Number,
             require: false
@@ -28,6 +33,7 @@ export default {
         return {
             schedules: [],
             lastClickedEvent: '',
+            schedulingPolicies: [],
             calendarOptions: {
                 plugins: [ interactionPlugin, timeGridPlugin ],
                 initialView: 'timeGridWeek',
@@ -53,6 +59,13 @@ export default {
         }
     },
     methods: {
+        readSchedulingPolicy() {
+            httpRequests.readAll('politica_agendamento')
+                .then(response => {
+                    this.schedulingPolicies = response.data.objects[0]
+                    this.computeLimitTimes()
+                })
+        },
         readDoctorSchedules() {
             this.calendarOptions.events = []
             httpRequests.readAll('agenda_medica')
@@ -74,13 +87,28 @@ export default {
                     }
                 })
         },
-        selectItem() {
-            alert('uiuiui')
+        computeLimitTimes() {
+            if (this.$route.name == "AgendaMedica") {
+                this.calendarOptions.slotMinTime = '06:00:00'
+                this.calendarOptions.slotMaxTime = '18:00:00'
+            } else if (this.schedulingPolicies.PltAgd_Turno_Grupo_Risco == 'Manhã' && this.riskGroupBelonging == 1) {
+                this.calendarOptions.slotMinTime = '06:00:00'
+                this.calendarOptions.slotMaxTime = '12:00:00'
+            } else if (this.schedulingPolicies.PltAgd_Turno_Grupo_Risco == 'Tarde' && this.riskGroupBelonging == 1) {
+                this.calendarOptions.slotMinTime = '12:00:00'
+                this.calendarOptions.slotMaxTime = '18:00:00'
+            } else if (this.schedulingPolicies.PltAgd_Turno_Grupo_Risco == 'Manhã' && this.riskGroupBelonging == 0) {
+                this.calendarOptions.slotMinTime = '12:00:00'
+                this.calendarOptions.slotMaxTime = '18:00:00'
+            } else if (this.schedulingPolicies.PltAgd_Turno_Grupo_Risco == 'Tarde' && this.riskGroupBelonging == 0) {
+                this.calendarOptions.slotMinTime = '06:00:00'
+                this.calendarOptions.slotMaxTime = '12:00:00'
+            }
+
         }
     }
 }
 </script>
 
 <style scoped>
-
 </style>

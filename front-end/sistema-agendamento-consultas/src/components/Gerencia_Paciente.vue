@@ -31,7 +31,8 @@
                         <td v-if="patient.Pct_Grupo_Risco == 0">Não Pertence</td>
                         <td v-if="patient.Pct_Grupo_Risco == 1">Pertence</td>
                         <td>
-                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-primary">Editar</button>
+                            <button @click="markAppointment(patient.Pct_ID)" class="btn btn-info" >Marcar Consulta</button>
+                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-primary" style="margin-left: 5%;">Editar</button>
                             <button @click="deletePatient(patient.Pct_ID)" class="btn btn-danger" style="margin-left: 5%;">Excluir</button>
                         </td>
                     </tr>
@@ -84,6 +85,9 @@ export default {
                         }, 2000)
                     )
                 )
+        },
+        markAppointment(id) {
+            this.$router.push(`/AgendarConsulta/${id}`)
         }
     }
 }

@@ -5,11 +5,7 @@
                 <h3>Agendar Consultas</h3>
             </div>
             <br>
-            <label><b> Selecione o Paciente: </b></label>
-            <input type="text" name="patient" list="patientname" v-model="selectedPatient"> 
-                <datalist id="patientname">
-                    <option v-for="(patient, index) in patients" :key="index">{{patient.Pct_Nome}}</option>
-                </datalist>
+            <label><b> Paciente: </b> {{patient.Pct_Nome}}</label>      
 
             <label><b> Selecione a Especialidade: </b></label>
             <input type="text" name="specialization" list="specializationname" v-model="selectedSpecialization"> 
@@ -17,7 +13,7 @@
                     <option v-for="(specialization, index) in specializations" :key=index>{{specialization}}</option>
             </datalist>
 
-            <label><b> Selecione o Médico </b></label>
+            <label><b> Selecione o Médico: </b></label>
             <p v-for="(filteredDoctor, index) in filteredDoctors" :key="index"> 
                 <button class="btn" @click="showSelectedDoctorSchedules(filteredDoctor.Med_ID)">{{filteredDoctor.Med_Nome}}</button>
             </p>
@@ -26,7 +22,8 @@
                 ref = "Calendario"
                 v-if = "showCalendar"
                 :doctorID = "selectedDoctorID"
-                @doctorScheduleID = "selectedScheduleID = $event"
+                :riskGroupBelonging="parseInt(patient.Pct_Grupo_Risco)"
+                @doctorScheduleID="selectedScheduleID = $event"
             >
             </Calendario><br>
 
@@ -34,14 +31,21 @@
             <p> <b> Hora: </b> {{selectedSchedule.AgdMed_Hora_Inicio}} </p>
             
             <label><b>Selecione o modo de atendimento: </b></label>
-            <p> Presencial &nbsp;&nbsp; <input @click="appointmentMode = 'Presen'" name="appointmentMode" type="radio"> </p>
-            <p> Remoto <input @click="appointmentMode = 'Remoto'" name="appointmentMode" type="radio"> </p>
+            <select style="width: 30%; margin:auto;" v-model="appointmentMode">
+                <option>Presencial</option>
+                <option>Remoto</option>
+            </select>
+
     
             <label><b>Selecione a forma de pagamento: </b></label>
-            <p> Plano de Saúde <input @click="paymentForm = 'Plano'" name="paymentForm" type="radio"> </p>
-            <p> Boleto Bancário <input @click="paymentForm = 'Boleto'" name="paymentForm" type="radio"> </p>
-            <p> Cartão de Crédito <input @click="paymentForm = 'Cartão'" name="paymentForm" type="radio"> </p><br>
-            
+            <select style="width: 30%; margin:auto;" v-model="paymentForm">
+                <option>Plano de Saúde</option>
+                <option>Boleto Bancário</option>
+                <option>Cartão de Crédito</option>
+            </select>
+            <br>
+            <br>
+
             <p>
                 <button class="btn btn-success" style="width: 15%;" @click="markAppointment()">Marcar Consulta</button>
             </p>
@@ -67,24 +71,24 @@ export default {
         Calendario
     },
     created() {
-        this.readPatients()
+        this.id = this.$route.params.id
+        this.readPatient()
         this.readDoctors()
     },
     watch: {
-        selectedSpecialization: function(oldValue, newValue) {
+        selectedSpecialization: function(newValue, oldValue) {
             this.filteredDoctors = []
             return this.filterDoctors()
         },
-        selectedScheduleID: function(oldValue, newValue) {
+        selectedScheduleID: function(newValue, oldValue) {
             this.showSelectedSchedule()
         }
     },
     data() {
         return {
-            patients: [],
+            patient: '',
             doctors: [],
             specializations: [],
-            selectedPatient: '',
             selectedSpecialization: '',
             filteredDoctors: [],
             selectedDoctorID: '',
@@ -95,15 +99,17 @@ export default {
             paymentForm: '',
             showIncompleteAlert: '',
             showCreatedAlert: '',
-            formatedDay: ''
+            formatedDay: '',
+            id: this.$route.params.id,
+            
         }
     }, 
     methods: {
-        readPatients () {
-            httpRequests.readAll('paciente')
+        readPatient () {
+            httpRequests.read('paciente', this.id)
                 .then(
                     response => (
-                        this.patients = response.data.objects
+                        this.patient = response.data
                     )
                 )
         },
@@ -129,8 +135,8 @@ export default {
                 }
             }
         },
-        showSelectedDoctorSchedules(id) {
-            this.selectedDoctorID = id
+        showSelectedDoctorSchedules(index) {
+            this.selectedDoctorID = index
             this.showCalendar = true
             this.$refs.Calendario.readDoctorSchedules()
         },
@@ -149,9 +155,9 @@ export default {
                 'Cons_Horario': this.selectedSchedule.AgdMed_Hora_Inicio,
                 'Cons_Med_ID': this.selectedDoctorID, 
                 'Cons_Tipo': this.appointmentMode,
-                'Cons_Descricao': 'aaaa',
+                'Cons_Descricao': 'aaaaa',
                 'Cons_Pagamento': this.paymentForm,
-                'Cons_Pct_ID': 1
+                'Cons_Pct_ID': this.id
             }).then( () => {
                 this.selectedPatient = ''
                 this.selectedSpecialization = ''
