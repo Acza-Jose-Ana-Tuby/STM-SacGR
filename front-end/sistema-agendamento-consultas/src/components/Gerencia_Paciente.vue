@@ -6,7 +6,7 @@
     <br>
     <div class="col d-flex justify-content-center">
         <div class="card" style="width: 70%;"> 
-             <div class='card-header bg-dark'>
+             <div class='card-header' style="background-color: #43A390;">
                 <h3>Gerenciar Pacientes</h3>
             </div>
             <table class="table">
@@ -32,8 +32,9 @@
                         <td v-if="patient.Pct_Grupo_Risco == 1">Pertence</td>
                         <td>
                             <button @click="markAppointment(patient.Pct_ID)" class="btn btn-info" >Marcar Consulta</button>
-                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-primary" style="margin-left: 5%;">Editar</button>
-                            <button @click="deletePatient(patient.Pct_ID)" class="btn btn-danger" style="margin-left: 5%;">Excluir</button>
+                            <button @click="checkAppoitmentsHistoric(patient.Pct_ID)" class="btn btn-primary" style="margin-left: 5%;" >Histórico</button><br>
+                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-warning" style="margin-top: 5%;">Editar</button>
+                            <button @click="deletePatient(patient.Pct_ID)" class="btn btn-danger" style="margin-left: 5%; margin-top: 5%;">Excluir</button>
                         </td>
                     </tr>
                 </tbody>
@@ -88,6 +89,9 @@ export default {
         },
         markAppointment(id) {
             this.$router.push(`/AgendarConsulta/${id}`)
+        },
+        checkAppoitmentsHistoric(id) {
+            this.$router.push(`/HistoricoConsultas/${id}`)
         }
     }
 }
@@ -99,9 +103,10 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
+
 
 <style scoped>
 

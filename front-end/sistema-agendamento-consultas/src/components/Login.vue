@@ -4,18 +4,20 @@
             <div class="card shadow bg-light border-dark mb-3" style="width: 25%;">
                 <div class="card-header border-dark">
                     <br>
-                    <h3><b>Login {{userData}}</b></h3> 
+                    <h3><b>Login</b></h3> 
                     <br>
                 </div>
                 <form>
                     <br>
                     <div class='form-group'>
                         <label>E-Mail</label><br>
-                        <input type="text" class="form-control" v-model="name">
+                        <input type="text" class="form-control" v-model="email">
                     </div>
+
                     <div class='form-group'>
                         <label>Senha</label><br>
-                        <input type="text" class="form-control" v-model="RG">
+                        <input type="password" class="form-control" v-model="password">
+ 
                     </div>
                     <div class='form-group'>
                         <span>Ainda não possui cadastro no sistema?<br> 
@@ -31,14 +33,55 @@
 <script>
 import httpRequests from '../http-requests'
 export default {
+    created() {
+        this.readUsers()
+    },
+    data () {
+        return {
+            users: [],
+            userIndex: '',
+            email: '',
+            password: ''
+        }
+    }, 
     methods: {
         goToApplication() {
             this.$router.push('/AgendarConsulta')
         },
         goToSignUpPage() {
             this.$router.push('/CadastroPaciente')
+        },
+        readUsers() {
+            httpRequests.readAll('login').then(response => {
+                this.users = response.data
+            })
+        }, 
+        checkUser() {
+            for (let i = 0 ; i < 4 ; i++) {
+                if (this.users[i].Pct_Email == this.email) { 
+                    console.log(this.userIndex)
+                    this.userIndex = i
+                    return true
+                }
+            } 
+            return false 
+        }, 
+        checkCredentials() {
+            if (this.users[this.userIndex].password == this.password) {
+                return true
+            }
+            return false 
+        },
+        login() { 
+            if (!this.checkUser()) {
+                return 
+            } 
+            if (!this.checkCredentials()) {
+                return
+            } 
+            this.goToApplication()
         }
-    }
+    } 
 }
 </script>
 
@@ -50,9 +93,8 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
-
 </style>
 
 <style scoped>
@@ -88,5 +130,6 @@ button{
 h3, form {
     text-align: center;
 }
+
 
 </style>

@@ -63,9 +63,14 @@ export const router = new Router({
             component: () => import('./components/Agenda_Medica.vue')
         },
         {
+            path: '/HistoricoConsultas/:id',
+            name: 'HistoricoConsultas',
+            component: () => import('./components/Historico_Consulta.vue')
+        },
+        {
             path: '/Login',
             name: 'Login',
             component: () => import('./components/Login.vue')
-        }
+        },
     ]
 })

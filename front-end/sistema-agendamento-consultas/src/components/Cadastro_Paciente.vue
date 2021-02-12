@@ -4,6 +4,7 @@
             @showPanel = "showInformation = $event"
          >
          </PainelAviso>
+    
     <div class="container-fluid">
         <div class="col d-flex justify-content-center">
             <div class="card shadow bg-light border-dark mb-3" style="width: 30%;">
@@ -14,36 +15,36 @@
                 </div>
                 <form>
                     <br>
-                    <div class='form-group'>
-                        <label>Nome</label><br>
-                        <input type="text" class="form-control" v-model="name">
+                    <div onmouseover = "Tip('Mensagem')" class='form-group'>
+                        <label title="Campo Obrigatório">Nome</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
+                        <input type="text" class="form-control" v-model="name" required>
                     </div>
                     <div class='form-group'>
                         <label>RG</label><br>
                         <input type="text" class="form-control" v-model="RG">
                     </div>
                     <div class='form-group'>
-                        <label>CPF</label><br>
-                        <input type="text" class="form-control" v-model="CPF">
+                        <label>CPF</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
+                        <input type="text" class="form-control" v-model="CPF" required>
                     </div>
                     <div class='form-group'>
                         <label>Endereço</label><br>
                         <input type="text" class="form-control" v-model="address">
                     </div>
                     <div class='form-group'>
-                        <label>E-mail</label><br>
-                        <input type="email" class="form-control" v-model="email">
+                        <label>E-mail</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
+                        <input type="email" class="form-control" v-model="email" required>
                     </div>
                     <div class='form-group'>
-                        <label>Telefone</label><br>
-                        <input type="text" class="form-control" v-model="telephone">
+                        <label>Telefone</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
+                        <input type="text" class="form-control" v-model="telephone" required>
                     </div>
                     <div class='form-group'>
-                        <label>Senha</label><br>
-                        <input type="password" class="form-control" v-model="password">
+                        <label>Senha</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
+                        <input type="password" class="form-control" v-model="password" required>
                     </div>
                     <div class='form-group'>
-                        <label>Pertence a algum grupo de risco?</label><br>
+                        <label>Pertence a algum grupo de risco?</label><i title="Campo Obrigatório" style="color: red;">*</i><br>
                         <input @click="riskGroup = 1" name="riskGroup" type="radio"> Sim
                         <input @click="riskGroup = 0" name="riskGroup" type="radio"> Não <br>
                     </div>
@@ -56,7 +57,7 @@
                 <button @click="createUser()" class="btn btn-primary rounded-pill">Enviar</button><br><br>
 
                 <p v-show="showIncompleteAlert" style="text-align: center;">
-                    <span class="alert alert-warning">Preencha todos os campos para prosseguir.</span><br>
+                    <span class="alert alert-warning">Preencha todos os campos obrigatórios para prosseguir.</span><br>
                 </p>
                 <p v-show="showCreatedAlert" style="text-align: center;">
                     <span class="alert alert-success">Paciente cadastrado com sucesso!</span><br>
@@ -93,7 +94,7 @@ export default {
     },
     methods: {
         createUser() {
-            if (!this.name || !this.RG || !this.CPF || !this.address || !this.email || !this.telephone || !this.password || this.riskGroup === '') {
+            if (!this.name || !this.CPF || !this.email || !this.telephone || !this.password || this.riskGroup === '') {
                 this.showIncompleteAlert = true
                 return
             }
@@ -127,9 +128,8 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
-
 </style>
 
 <style scoped>

@@ -12,10 +12,10 @@
 
     <div class="col d-flex justify-content-center">
         <div class="card bg-light " style="width: 70%;"> 
-            <div v-show="id=='-1'" class="card-header"> 
+            <div v-show="id=='-1'" class='card-header' style="background-color: #43A390;"> 
                 <h3>Cadastrar novo Atendente</h3>
             </div>
-            <div v-show="id!='-1'" class="card-header"> 
+            <div v-show="id!='-1'" class='card-header' style="background-color: #43A390;"> 
                 <h3>Editar dados do Atendente</h3>
             </div>
            <form>
@@ -125,7 +125,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 
@@ -154,9 +154,14 @@ input[type="email"] {
 
 h3 {
     text-align: center;
+    color: white; 
 }
 
 label {
+    text-align: center;
+}
+
+form {
     text-align: center;
 }
 

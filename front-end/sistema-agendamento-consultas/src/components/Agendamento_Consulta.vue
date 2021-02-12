@@ -1,7 +1,7 @@
 <template>
     <div class="col d-flex justify-content-center">
         <div class="card" style="width: 70%;"> 
-            <div class='card-header bg-dark'>
+            <div class='card-header' style="background-color: #43A390;">
                 <h3>Agendar Consultas</h3>
             </div>
             <br>
@@ -10,7 +10,7 @@
             <label><b> Selecione a Especialidade: </b></label>
             <input type="text" name="specialization" list="specializationname" v-model="selectedSpecialization"> 
                 <datalist id="specializationname">
-                    <option v-for="(specialization, index) in specializations" :key=index>{{specialization}}</option>
+                    <option v-for="(specialization, index) in specializations" :key="index">{{specialization}}</option>
             </datalist>
 
             <label><b> Selecione o Médico: </b></label>
@@ -157,7 +157,8 @@ export default {
                 'Cons_Tipo': this.appointmentMode,
                 'Cons_Descricao': 'aaaaa',
                 'Cons_Pagamento': this.paymentForm,
-                'Cons_Pct_ID': this.id
+                'Cons_Pct_ID': this.id,
+                'Cons_Status': 'Marcada'
             }).then( () => {
                 this.selectedPatient = ''
                 this.selectedSpecialization = ''
@@ -178,7 +179,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 

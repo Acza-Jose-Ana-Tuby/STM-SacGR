@@ -12,35 +12,35 @@
 
     <div class="col d-flex justify-content-center">
         <div class="card bg-light " style="width: 70%;"> 
-            <div v-show="id=='-1'" class="card-header"> 
+            <div v-show="id=='-1'" class='card-header' style="background-color: #43A390;"> 
                 <h3>Cadastrar novo Administrador</h3>
             </div>
-            <div v-show="id!='-1'" class="card-header"> 
+            <div v-show="id!='-1'" class='card-header' style="background-color: #43A390;"> 
                 <h3>Editar dados do Administrador</h3>
             </div>
            <form>
                     <br>
                     <div class='form-group'>
-                        <label>Nome</label><br>
+                        <label>Nome:</label><br>
                         <input type="text" class="form-control" v-model="name">
                     </div>
                     <div class='form-group'>
-                        <label>E-mail</label><br>
+                        <label>E-mail:</label><br>
                         <input type="text" class="form-control" v-model="email">
                     </div>
                     <div class='form-group'>
-                        <label>Telefone</label><br>
+                        <label>Telefone:</label><br>
                         <input type="text" class="form-control" v-model="telephone">
                     </div>
                     <div class='form-group'>
-                        <label>Senha</label><br>
+                        <label>Senha:</label><br>
                         <input v-show="id == '-1'" type="password" class="form-control" v-model="password">
                         <input v-show="id != '-1'" type="password" class="form-control" placeholder="Nova Senha" v-model="password">
                     </div>
                     <br>
                 </form>
                 <p style="text-align: center;">
-                    <button v-show="id=='-1'" @click="createClerk()" class="btn btn-success" style="width: 15%">Adicionar Atendente</button>
+                    <button v-show="id=='-1'" @click="createClerk()" class="btn btn-success" style="width: 15%">Adicionar Administrador</button>
                     <button v-show="id!='-1'" @click="createClerk()" class="btn btn-success" style="width: 15%">Salvar Alterações</button>
                 </p>
         </div>    
@@ -125,7 +125,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 
@@ -154,9 +154,13 @@ input[type="email"] {
 
 h3 {
     text-align: center;
+    color: white;
 }
 
 label {
+    text-align: center;
+}
+form {
     text-align: center;
 }
 

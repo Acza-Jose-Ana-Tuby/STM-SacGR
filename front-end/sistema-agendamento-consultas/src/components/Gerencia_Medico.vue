@@ -6,7 +6,7 @@
     <br>
     <div class="col d-flex justify-content-center">
         <div class="card" style="width: 70%;"> 
-            <div class='card-header bg-dark'>
+            <div class='card-header' style="background-color: #43A390;">
                 <h3>Gerenciar Médicos</h3>
             </div>
 
@@ -30,7 +30,7 @@
                         <td>{{ doctor.Med_Especialidade }}</td>
                         <td>
                             <button @click="viewSchedules(doctor.Med_ID)" class="btn btn-info">Agenda</button>
-                            <button @click="updateDoctor(doctor.Med_ID)" class="btn btn-primary" style="margin-left: 5%;">Editar</button>
+                            <button @click="updateDoctor(doctor.Med_ID)" class="btn btn-warning" style="margin-left: 5%;">Editar</button>
                             <button @click="deleteDoctor(doctor.Med_ID)" class="btn btn-danger" style="margin-left: 5%;">Excluir</button>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 

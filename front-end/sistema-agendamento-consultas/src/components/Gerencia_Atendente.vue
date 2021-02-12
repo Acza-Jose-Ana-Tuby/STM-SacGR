@@ -6,7 +6,7 @@
     <br>
     <div class="col d-flex justify-content-center">
         <div class="card" style="width: 70%;"> 
-            <div class='card-header bg-dark'>
+            <div class='card-header' style="background-color: #43A390;">
                 <h3>Gerenciar Atendentes</h3>
             </div>
             <table class="table">
@@ -24,7 +24,7 @@
                         <td>{{ clerk.Atd_Email }}</td>
                         <td>{{ clerk.Atd_Telefone }}</td>
                         <td>
-                            <button @click="updateClerk(clerk.Atd_ID)" class="btn btn-primary">Editar</button>
+                            <button @click="updateClerk(clerk.Atd_ID)" class="btn btn-warning">Editar</button>
                             <button @click="deleteClerk(clerk.Atd_ID)" class="btn btn-danger" style="margin-left: 5%;">Excluir</button>
                         </td>
                     </tr>
@@ -88,7 +88,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 

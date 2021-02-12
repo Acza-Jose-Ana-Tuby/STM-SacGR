@@ -1,7 +1,7 @@
 <template>
 <div class="col d-flex justify-content-center">
     <div class="card" style="width: 70%;"> 
-        <div class='card-header bg-dark'>
+        <div class='card-header' style="background-color: #43A390;">
             <h3>Política de Agendamento</h3>
         </div>
         <br>
@@ -57,6 +57,9 @@
 <script>
 import httpRequests from '../http-requests'
 export default {
+    created() {
+        this.readSchedulingPolicy()
+    },
     watch: {
         selectedOption: function(newValue, oldValue) {
             if (newValue == 'Manhã'){
@@ -80,6 +83,17 @@ export default {
         }
     },
     methods: {
+        readSchedulingPolicy() {
+            httpRequests.readAll('politica_agendamento').then(response => {
+                this.selectedOption = response.data.objects[0].PltAgd_Turno_Grupo_Risco
+                this.regularGroupInterval = response.data.objects[0].PltAgd_Turno_Regular
+                this.riskGroupInterval = response.data.objects[0].PltAgd_Turno_Grupo_Risco
+                this.regularCapacity = response.data.objects[0].PltAgd_Capacidade_Regular
+                this.riskGroupCapacity = response.data.objects[0].PltAgd_Capacidade_Grupo_Risco
+                this.regularProtocols = response.data.objects[0].PltAgd_Protocolos_Regular
+                this.riskGroupProtocols = response.data.objects[0].PltAgd_Protocolos_Grupo_Risco
+            })
+        },
         createSchedulingPolicy () {
             httpRequests.create('politica_agendamento', 
                 {   'PltAgd_Turno_Regular': this.regularGroupInterval,
@@ -104,7 +118,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 h3 {
     text-align: center;
@@ -121,7 +135,7 @@ p, label {
     margin-right: 10%;
 }
 .note {
-    font-size: 0.75em; 
+    font-size: 0.9em; 
     color: red;
 }
 h5 {

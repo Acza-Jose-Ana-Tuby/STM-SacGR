@@ -1,7 +1,7 @@
 <template>
     <div class="col d-flex justify-content-center">
         <div class="card" style="width: 70%;"> 
-            <div class='card-header bg-dark'>
+            <div class='card-header' style="background-color: #43A390;">
                 <h3>Agenda Médica</h3>
             </div>
             <br>
@@ -157,7 +157,7 @@ body, html {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #dee9ff;
+  background-color: #D5E6E6;
 }
 </style>
 
