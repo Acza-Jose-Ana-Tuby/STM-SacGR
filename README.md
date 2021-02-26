@@ -19,5 +19,5 @@ BackEnd:  Abra o terminal (Linux) ou prompt (Windows) e navegue para pasta do ba
 
 FrontEnd: Abra o terminal (Linux) ou prompt (Windows) e navegue para pasta do front-end, a seguir use o comando [npm install] para instalar as dependências necessárias. Caso haja uma mensegem de erro, re-execute o comando com privilégios de administrador. Depois da instalação, abra o servidor web em modo de desenvolvimento digitando o comando [npm run serve] e aguarde o servidor ser carregado.
 
-Executando a aplicação:
+#Executando a aplicação:
 Abra o navegador de internet (Chrome, Firefox, etc) e certifique-se de que o javascript esteja habilitado. Acesse a aplicação digitando na barra de endereço localhost:8081/.
