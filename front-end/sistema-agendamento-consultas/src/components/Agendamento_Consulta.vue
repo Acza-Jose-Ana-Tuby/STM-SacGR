@@ -8,10 +8,10 @@
             <label><b> Paciente: </b> {{patient.Pct_Nome}}</label>      
 
             <label><b> Selecione a Especialidade: </b></label>
-            <input type="text" name="specialization" list="specializationname" v-model="selectedSpecialization"> 
-                <datalist id="specializationname">
-                    <option v-for="(specialization, index) in specializations" :key="index">{{specialization}}</option>
-            </datalist>
+
+            <select v-model="selectedSpecialization">
+                <option v-for="(specialization, index) in specializations" :key="index">{{specialization}}</option>
+            </select>
 
             <label><b> Selecione o Médico: </b></label>
             <p v-for="(filteredDoctor, index) in filteredDoctors" :key="index"> 
@@ -36,7 +36,6 @@
                 <option>Remoto</option>
             </select>
 
-    
             <label><b>Selecione a forma de pagamento: </b></label>
             <select style="width: 30%; margin:auto;" v-model="paymentForm">
                 <option>Plano de Saúde</option>
@@ -76,11 +75,11 @@ export default {
         this.readDoctors()
     },
     watch: {
-        selectedSpecialization: function(newValue, oldValue) {
+        selectedSpecialization: function() {
             this.filteredDoctors = []
             return this.filterDoctors()
         },
-        selectedScheduleID: function(newValue, oldValue) {
+        selectedScheduleID: function() {
             this.showSelectedSchedule()
         }
     },
@@ -99,34 +98,27 @@ export default {
             paymentForm: '',
             showIncompleteAlert: '',
             showCreatedAlert: '',
-            formatedDay: '',
-            id: this.$route.params.id,
-            
+            formatedDay: ''
         }
     }, 
     methods: {
         readPatient () {
             httpRequests.read('paciente', this.id)
                 .then(
-                    response => (
-                        this.patient = response.data
-                    )
+                    response => (this.patient = response.data)
                 )
         },
         readDoctors() {
             httpRequests.readAll('medico')
                 .then(
-                    response => (
-                        this.doctors = response.data.objects,
-                        this.defineSpecializations()
-                    )
+                    response => {
+                        this.doctors = response.data.objects
+                        for (let doctor of this.doctors) {
+                            this.specializations.push(doctor.Med_Especialidade)
+                        }
+                        this.specializations = this.specializations.filter((item, i) => this.specializations.indexOf(item) === i)
+                    }
                 )
-        },
-        defineSpecializations() {
-            for (let doctor of this.doctors) {
-                this.specializations.push(doctor.Med_Especialidade)
-            }
-            this.specializations = this.specializations.filter((item, i) => this.specializations.indexOf(item) === i)
         },
         filterDoctors() {
             for (let doctor of this.doctors) {
@@ -155,7 +147,7 @@ export default {
                 'Cons_Horario': this.selectedSchedule.AgdMed_Hora_Inicio,
                 'Cons_Med_ID': this.selectedDoctorID, 
                 'Cons_Tipo': this.appointmentMode,
-                'Cons_Descricao': 'aaaaa',
+                'Cons_Descricao': 'nula',
                 'Cons_Pagamento': this.paymentForm,
                 'Cons_Pct_ID': this.id,
                 'Cons_Status': 'Marcada'
@@ -190,12 +182,12 @@ h3 {
 }
 
 p, label {
-    text-align: center;
+    text-align
+    : center;
 }
 
 input[type="text"]{
     width: 50%;
     margin: auto;
 }
-
 </style>

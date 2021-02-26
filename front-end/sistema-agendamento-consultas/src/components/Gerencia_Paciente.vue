@@ -5,7 +5,7 @@
     </p>
     <br>
     <div class="col d-flex justify-content-center">
-        <div class="card" style="width: 70%;"> 
+        <div class="card" style="width: 80%;"> 
              <div class='card-header' style="background-color: #43A390;">
                 <h3>Gerenciar Pacientes</h3>
             </div>
@@ -18,7 +18,7 @@
                         <th scope="col">E-Mail</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">Grupo De Risco</th>
-                        <th scope="col">Ações</th>
+                        <th scope="col" colspan="2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,11 +30,11 @@
                         <td>{{ patient.Pct_Telefone }}</td>
                         <td v-if="patient.Pct_Grupo_Risco == 0">Não Pertence</td>
                         <td v-if="patient.Pct_Grupo_Risco == 1">Pertence</td>
-                        <td>
+                        <td colspan="2">
                             <button @click="markAppointment(patient.Pct_ID)" class="btn btn-info" >Marcar Consulta</button>
-                            <button @click="checkAppoitmentsHistoric(patient.Pct_ID)" class="btn btn-primary" style="margin-left: 5%;" >Histórico</button><br>
-                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-warning" style="margin-top: 5%;">Editar</button>
-                            <button @click="deletePatient(patient.Pct_ID)" class="btn btn-danger" style="margin-left: 5%; margin-top: 5%;">Excluir</button>
+                            <button @click="checkAppoitmentsHistoric(patient.Pct_ID)" class="btn btn-primary" style="margin-left: 5%;" >Histórico</button>
+                            <button @click="updatePatient(patient.Pct_ID)" class="btn btn-warning" style="margin-left: 5%;">Editar</button>
+                            <button @click="deletePatient(patient.Pct_ID)" class="btn btn-danger" style="margin-left: 5%;">Excluir</button>
                         </td>
                     </tr>
                 </tbody>

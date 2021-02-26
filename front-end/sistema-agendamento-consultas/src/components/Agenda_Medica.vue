@@ -13,7 +13,14 @@
                 <p>
                     <button class="btn btn-success" style="width: 15%" @click="createSchedule()">Adicionar Horário</button>
                 </p>
-            </div><br><br>
+            </div><br>
+            <p v-show="successAlert" style="text-align: center;">
+                <span class="alert alert-success">Horário registrado com sucesso na agenda.</span><br>
+            </p>
+            <p v-show="showBlockedAlert" style="text-align: center;">
+                <span class="alert alert-warning">Não é possível agendar consulta nesse horário. Capacidade da clínica cheia.</span><br>
+            </p>
+            <br>
            <Calendario
             :doctorID='id'
             ref = "Calendario"
@@ -55,7 +62,9 @@ export default {
             schedules: [],
             allDaySchedules: [],
             interval: '',
-            schedulingPolicies: []
+            schedulingPolicies: [],
+            showBlockedAlert: false,
+            successAlert: false
         }
     },
     methods: {
@@ -118,7 +127,7 @@ export default {
                 }
 
                  if (counter == capacity) {
-                    alert ('Não é possível agendar consulta nesse horário. Capacidade cheia')
+                    this.showBlockedAlert = true
                     return -1
                 }
             
@@ -141,9 +150,14 @@ export default {
                 'AgdMed_Duracao': this.duration, 
                 'AgdMed_Med_ID': this.id,
             }).then(() => {
+                this.showBlockedAlert = false 
                 this.date = ''
                 this.time = ''
                 this.duration = ''
+                this.successAlert = true
+                setTimeout(() => {
+                    this.successAlert = false
+                }, 2000)
                 this.$refs.Calendario.readDoctorSchedules()
             })
         }

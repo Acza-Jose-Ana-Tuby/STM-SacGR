@@ -52,19 +52,28 @@ export default {
             this.$router.push('/CadastroPaciente')
         },
         readUsers() {
-            httpRequests.readAll('login').then(response => {
-                this.users = response.data
+            httpRequests.readAll('paciente').then(response => {
+                this.users = response.data.objects
             })
         }, 
         checkUser() {
-            for (let i = 0 ; i < 4 ; i++) {
+            /*
+            for (let user of users) {
+                if (user.Pct_Email == this.email) {
+                    this.userIndex = this.user.Pct_ID
+                    return false
+                }
+            }
+            return true 
+
+            for (let i = 0 ; i < listLength ; i++) {
                 if (this.users[i].Pct_Email == this.email) { 
-                    console.log(this.userIndex)
-                    this.userIndex = i
+                    this.userIndex = i 
+                    console.log(i)
                     return true
                 }
             } 
-            return false 
+            return false */
         }, 
         checkCredentials() {
             if (this.users[this.userIndex].password == this.password) {

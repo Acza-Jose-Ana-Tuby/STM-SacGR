@@ -9,14 +9,14 @@
       <li class="nav-item">
         <a style="color: white;" class="nav-link" href="/GerenciaAdministrador">Administrador</a>
       </li>
+      <li class="nav-item">
+        <a style="color: white;" class="nav-link" href="/GerenciaAtendente">Atendente</a>
+      </li>
       <li>
         <a style="color: white;" class="nav-link" href="/GerenciaPaciente">Paciente</a>
       </li>
       <li class="nav-item">
         <a style="color: white;" class="nav-link" href="/GerenciaMedico">Médico</a>
-      </li>
-      <li class="nav-item">
-        <a style="color: white;" class="nav-link" href="/GerenciaAtendente">Atendente</a>
       </li>
       <li class="nav-item">
         <a style="color: white;" class="nav-link" href="/PoliticaAgendamento">Política de Agendamento</a>
